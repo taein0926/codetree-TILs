@@ -20,6 +20,7 @@ int main() {
                     cout << arr[j] + 3 << " ";
                 }
             }
+            break;
         }
     }
     return 0;
