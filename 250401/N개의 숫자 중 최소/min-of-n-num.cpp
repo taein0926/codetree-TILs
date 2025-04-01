@@ -12,7 +12,7 @@ int main() {
         cin >> A[i];
     }
 
-    int min = INT_MAX, num = 1;
+    int min = INT_MAX, num = 0;
     for (int i=0; i<N; i++) {
         if (A[i] == min) num++;
         if (A[i] < min) {
