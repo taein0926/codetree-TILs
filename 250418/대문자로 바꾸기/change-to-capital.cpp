@@ -1,9 +1,7 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
 char arr[5][3];
-string change;
 
 int main() {
     for (int i = 0; i < 5; i++) {
