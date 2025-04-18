@@ -20,7 +20,7 @@ int main() {
 		for (int j = 0; j < 4; j++) {
 			sum += arr[i][j];
 		}
-        avg = sum / 4;
+        avg = sum / 4.0;
         cout << avg << " ";
 	}
     cout << "\n";
@@ -30,18 +30,18 @@ int main() {
 		for (int j = 0; j < 2; j++) {
 			sum += arr[j][i];
 		}
-        avg = sum / 2;
+        avg = sum / 2.0;
         cout << avg << " ";
 	}
     cout << "\n";
-    
+
     sum = 0;
     for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 4; j++) {
 			sum += arr[i][j];
 		}
 	}
-    avg = sum / 8;
+    avg = sum / 8.0;
     cout << avg;
     return 0;
 }
