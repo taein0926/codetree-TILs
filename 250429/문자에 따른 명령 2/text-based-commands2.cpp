@@ -15,7 +15,7 @@ int main() {
             dir = (dir - 1 + 4) % 4;
         }
         else if (q[i] == 'R') {
-            dir = (dir - 1) % 4;
+            dir = (dir + 1) % 4;
         }
         else {
             x += dx[dir];
