@@ -1,17 +1,19 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-bool flag = true;
+bool outflag = true;
 int n;
 int r, c;
-int max_num, max_x, max_y, iter = 0;
-int a[100][100], ans[10000];
+int max_num;
+int a[100][100];
 int dx[4] = {-1, 1, 0, 0};
 int dy[4] = {0, 0, -1, 1};
+vector<int> ans;
 
 bool InRange(int x, int y) {
-    return (x > 0 && x < n && y > 0 & y < n);
+    return (x >= 0 && x < n && y >= 0 & y < n);
 }
 
 int main() {
@@ -26,10 +28,10 @@ int main() {
     }
 
     max_num = a[cur_x][cur_y];
-    ans[iter] = max_num;
-    iter++;
+    ans.push_back(max_num);
 
     do {
+        bool inflag = false;
         for (int i = 0; i < 4; i++) {
             int next_x = cur_x + dx[i];
             int next_y = cur_y + dy[i];
@@ -37,14 +39,15 @@ int main() {
                 cur_x = next_x;
                 cur_y = next_y;
                 max_num = a[cur_x][cur_y];
-                ans[iter] = max_num;
-                iter++;
+                ans.push_back(max_num);
+                inflag = true;
+                break;
             }
-            else flag = false;
         }
-    } while (flag);
+        if (!inflag) outflag = false;
+    } while (outflag);
 
-    for (int i = 0; i < iter; i++) {
+    for (int i = 0; i < ans.size(); i++) {
         cout << ans[i] << " ";
     }
     return 0;
