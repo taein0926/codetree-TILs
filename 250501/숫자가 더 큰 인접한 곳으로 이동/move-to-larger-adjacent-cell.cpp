@@ -3,7 +3,7 @@
 
 using namespace std;
 
-bool outflag = true;
+bool flag = true;
 int n;
 int r, c;
 int max_num;
@@ -31,7 +31,6 @@ int main() {
     ans.push_back(max_num);
 
     do {
-        bool inflag = false;
         for (int i = 0; i < 4; i++) {
             int next_x = cur_x + dx[i];
             int next_y = cur_y + dy[i];
@@ -40,12 +39,12 @@ int main() {
                 cur_y = next_y;
                 max_num = a[cur_x][cur_y];
                 ans.push_back(max_num);
-                inflag = true;
+                flag = true;
                 break;
             }
+            else flag = false;
         }
-        if (!inflag) outflag = false;
-    } while (outflag);
+    } while (flag);
 
     for (int i = 0; i < ans.size(); i++) {
         cout << ans[i] << " ";
