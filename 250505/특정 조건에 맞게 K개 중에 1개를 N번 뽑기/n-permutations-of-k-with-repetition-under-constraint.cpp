@@ -27,8 +27,6 @@ void Choose(int num) {
         Choose(num + 1);
         seq.pop_back();
     }
-
-    return;
 }
 
 int main() {
