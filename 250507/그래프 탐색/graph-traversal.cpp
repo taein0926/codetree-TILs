@@ -6,11 +6,11 @@ using namespace std;
 int n, m;
 vector<vector<int>> graph;
 vector<bool> visited;
-int count = -1;
+int cnt = -1;
 
 void dfs(int node) {
     visited[node] = true;
-    count++;
+    cnt++;
     for (int next : graph[node]) {
         if (!visited[next]) {
             dfs(next);
@@ -31,6 +31,6 @@ int main() {
     }
 
     dfs(1);
-    cout << count << "\n";
+    cout << cnt << "\n";
     return 0;
 }
