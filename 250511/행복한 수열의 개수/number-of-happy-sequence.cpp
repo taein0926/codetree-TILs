@@ -29,6 +29,9 @@ int main() {
                 break;
             }
         }
+
+        if (n == 1 && m == 1)
+            ++count;
     }
 
     for (int j = 0; j < n; ++j) {
@@ -44,6 +47,9 @@ int main() {
                 break;
             }
         }
+
+        if (n == 1 && m == 1)
+            ++count;
     }
 
     cout << count << endl;
