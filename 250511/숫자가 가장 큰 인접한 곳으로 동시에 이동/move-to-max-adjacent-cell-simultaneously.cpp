@@ -1,60 +1,53 @@
 #include <iostream>
 #include <vector>
+#include <tuple>
 #include <map>
-
 using namespace std;
 
 int N, M, T;
 vector<vector<int>> board;
 vector<pair<int, int>> marbles;
 
-int dx[4] = {-1, 1, 0, 0};
-int dy[4] = {0, 0, -1, 1};
+int dr[4] = {-1, 1, 0, 0};
+int dc[4] = {0, 0, -1, 1};
 
-bool inRange(int x, int y) {
-    return 0 <= x && x < N && 0 <= y && y < N;
+bool is_in(int r, int c) {
+    return r >= 0 && r < N && c >= 0 && c < N;
 }
 
 void simulate() {
-    map<pair<int, int>, int> position_count;
-    vector<pair<int, int>> next_positions;
+    for (int t = 0; t < T; ++t) {
+        map<pair<int, int>, int> target_count;
+        vector<pair<int, int>> next_positions;
 
-    for (auto [x, y] : marbles) {
-        int maxVal = board[x][y];
-        vector<pair<int, int>> candidates;
+        for (auto [r, c] : marbles) {
+            int max_val = -1;
+            pair<int, int> target = {r, c};
 
-        for (int dir = 0; dir < 4; ++dir) {
-            int nx = x + dx[dir];
-            int ny = y + dy[dir];
-            if (inRange(nx, ny)) {
-                if (board[nx][ny] > maxVal) {
-                    maxVal = board[nx][ny];
-                    candidates.clear();
-                    candidates.emplace_back(nx, ny);
-                } else if (board[nx][ny] == maxVal) {
-                    candidates.emplace_back(nx, ny);
+            for (int d = 0; d < 4; ++d) {
+                int nr = r + dr[d];
+                int nc = c + dc[d];
+                if (is_in(nr, nc)) {
+                    if (board[nr][nc] > max_val) {
+                        max_val = board[nr][nc];
+                        target = {nr, nc};
+                    }
                 }
+            }
+
+            next_positions.push_back(target);
+            target_count[target]++;
+        }
+
+        vector<pair<int, int>> new_marbles;
+        for (int i = 0; i < marbles.size(); ++i) {
+            if (target_count[next_positions[i]] == 1) {
+                new_marbles.push_back(next_positions[i]);
             }
         }
 
-        if (!candidates.empty()) {
-            auto [nx, ny] = candidates[0];
-            next_positions.emplace_back(nx, ny);
-            position_count[{nx, ny}]++;
-        } else {
-            next_positions.emplace_back(x, y);
-            position_count[{x, y}]++;
-        }
+        marbles = new_marbles;
     }
-
-    vector<pair<int, int>> survived;
-    for (auto pos : next_positions) {
-        if (position_count[pos] == 1) {
-            survived.push_back(pos);
-        }
-    }
-
-    marbles = survived;
 }
 
 int main() {
@@ -74,10 +67,7 @@ int main() {
         marbles.emplace_back(r - 1, c - 1);
     }
 
-    for (int t = 0; t < T; ++t) {
-        simulate();
-    }
-
-    cout << marbles.size() << '\n';
+    simulate();
+    cout << marbles.size() << "\n";
     return 0;
 }
